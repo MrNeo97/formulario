@@ -47,7 +47,7 @@
 
 			<div class="form-group">
 
-				<label for="fecha_alta">Fecha de alta</label>
+				<label for="fecha_alta">Fecha de alta (opcional)</label>
 
 				<input type="date" class="form-control" name="fecha_alta">
 				

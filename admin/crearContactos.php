@@ -33,23 +33,44 @@
 
 		if ($_POST) {
 			
-			include "/formulario/models/Contacto.php";
+			include "../models/Contacto.php";
 
 			$contacto = new Contacto();
 
-			// $sanar = new Validaciones();
+			$contacto->setDbname('contactos');
 
-			// $datos = $sanar->sanar();
+			$fecha = date('Y-m-d');
+
+			echo "<br>";
+
+			$datos = array ("nombre" => filter_var(trim(strtolower($_POST['nombre'])), FILTER_SANITIZE_STRING),
+						"apellidos" => filter_var(trim(strtolower($_POST['apellidos'])), FILTER_SANITIZE_STRING),
+						"telefono" => filter_var(trim(strtolower($_POST['telefono'])), FILTER_SANITIZE_STRING),
+						"email" => filter_var(trim(strtolower($_POST['email'])), FILTER_SANITIZE_STRING),
+						"direccion" => filter_var(trim(strtolower($_POST['direccion'])), FILTER_SANITIZE_STRING),
+						"categoria_id" => 1,
+						"fecha_alta" => $fecha,
+						"usuario_id" => $_SESSION['user']['id']
+					);
+
+			if( $_POST['fecha_alta'] ) {
+
+				$datos['fecha_alta'] = trim($_POST['fecha_alta']);
+
+			}
+
 
 			try {
 
 				$contacto_id = $contacto->insert($datos);
 
-				echo '<br>El id del nuevo contacto es ' . $contacto_id . '<br>';
+				echo '<br>El id del nuevo contacto es el ' . $contacto_id . '<br>';
 
-				print_r($contacto->all());
+				//print_r($contacto->all());
 
 				echo "<br>Todo correcto<br>";
+
+				echo '<br><a class="btn btn-primary" href="/formulario/admin/crearContactos.php">Crear otro contacto</a><br>';
 
 			} catch(Exception $e) {
 

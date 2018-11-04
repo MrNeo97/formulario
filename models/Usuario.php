@@ -16,7 +16,18 @@ class Usuario extends Dbpdo
 	public function insert($params)
 	{
 
-		return parent::insert($this->validateParams($params));
+		$compruebaEmail = $this->consultaEmail($params['email']);
+
+
+		if ( ! $compruebaEmail) {
+
+			return parent::insert($this->validateParams($params));
+
+		} else {
+
+			throw new Exception('el email ya existe');
+
+		}
 	}
 
 	private function validateParams($params)

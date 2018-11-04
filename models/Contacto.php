@@ -1,12 +1,12 @@
 <?php
 
-include 'lib/Dbpdo.php';
-include 'Validaciones.php';
+include '../lib/Dbpdo.php';
+include '../Validaciones.php';
 
-class Usuario extends Dbpdo
+class Contacto extends Dbpdo
 {
 
-	public $table = 'usuarios';
+	public $table = 'contactos';
 
 	public function setTable($table)
 	{
@@ -15,8 +15,7 @@ class Usuario extends Dbpdo
 
 	public function insert($params)
 	{
-
-		return parent::insert($this->validateParams($params));
+		return parent::insert($params);
 	}
 
 	private function validateParams($params)

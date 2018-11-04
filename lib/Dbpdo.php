@@ -90,13 +90,13 @@ class Dbpdo
 		$this->connection();
 	}
 
-	public function all($limit = 10)
+	public function all($limit = 250)
 	{
 		$prepare = $this->db->prepare('SELECT * FROM ' . $this->table . ' LIMIT ' . $limit);
 
 		$prepare->execute();
 
-		$this->setQuery($prepare);
+		//$this->setQuery($prepare);
 
 		return $prepare->fetchAll(PDO::FETCH_ASSOC);
 	}
@@ -133,7 +133,20 @@ class Dbpdo
 
 	}
 
-	private function consultaEmail($email)
+	public function mostrar($id)
+	{
+
+		$prepare = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = \'' . $id. '\'');
+
+		$prepare->execute();
+
+		$resultado = $prepare->fetchAll(PDO::FETCH_ASSOC);
+
+		return $resultado;
+
+	}
+
+	protected function consultaEmail($email)
 	{
 
 		$prepare = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE email = \'' . $email. '\'');
@@ -152,12 +165,6 @@ class Dbpdo
 	{
 		if ( ! empty($params) ) {
 
-
-			$compruebaEmail = $this->consultaEmail($params['email']);
-
-
-			if ( ! $compruebaEmail) {
-
 				$fields = '(' . implode(',', array_keys($params)) . ')';
 
 				$values = "(:" . implode(",:", array_keys($params)) . ")";
@@ -166,16 +173,9 @@ class Dbpdo
 
 				$prepare->execute($this->normalizePrepareArray($params));
 
-				$this->setQuery($prepare);
+				//$this->setQuery($prepare);
 
-				return $this->db->lastInsertId();
-
-			} else {
-
-				throw new Exception('el email ya existe');
-
-			}
-			
+				return $this->db->lastInsertId();			
 
 		} else {
 
