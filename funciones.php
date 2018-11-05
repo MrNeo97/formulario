@@ -2,7 +2,11 @@
 
 function mostrar_campo($campo) {
 	if( isset($_POST[$campo])) {
-	echo ' value="' . $_POST[$campo] . '"';
+		echo ' value="' . $_POST[$campo] . '"';
+	}
+
+	if( isset($_GET[$campo])) {
+		echo ' value="' . $_GET[$campo] . '"';
 	}
 }
 

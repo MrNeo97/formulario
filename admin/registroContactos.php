@@ -9,7 +9,8 @@
 
 				<label for="nombre">Nombre</label>
 
-				<input type="text" class="form-control" name="nombre">
+				<input type="text" class="form-control" name="nombre"
+				<?php mostrar_campo('nombre'); ?>>
 
 			</div>
 
@@ -17,7 +18,8 @@
 
 				<label for="apellidos">Apellidos</label>
 
-				<input type="text" class="form-control" name="apellidos">
+				<input type="text" class="form-control" name="apellidos"
+				<?php mostrar_campo('apellidos'); ?>>
 				
 			</div>
 
@@ -25,7 +27,8 @@
 
 				<label for="telefono">Teléfono</label>
 
-				<input type="text" class="form-control" name="telefono">
+				<input type="text" class="form-control" name="telefono"
+				<?php mostrar_campo('telefono'); ?>>
 				
 			</div>
 
@@ -33,7 +36,8 @@
 
 				<label for="email">Email</label>
 
-				<input type="text" class="form-control" name="email">
+				<input type="text" class="form-control" name="email"
+				<?php mostrar_campo('email'); ?>>
 
 			</div>
 
@@ -41,15 +45,17 @@
 
 				<label for="direccion">Dirección</label>
 
-				<input type="text" class="form-control" name="direccion">
-				
+				<input type="text" class="form-control" name="direccion"
+				<?php mostrar_campo('direccion'); ?>>
+
 			</div>
 
 			<div class="form-group">
 
 				<label for="fecha_alta">Fecha de alta (opcional)</label>
 
-				<input type="date" class="form-control" name="fecha_alta">
+				<input type="date" class="form-control" name="fecha_alta"
+				<?php mostrar_campo('fecha_alta'); ?>>
 				
 			</div>
 

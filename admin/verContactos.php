@@ -7,6 +7,12 @@
 	<title>Ver Contactos</title>
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link rel="stylesheet" href="/js/bootstrap.min.js">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+	table {
+		text-align: center;
+	}
+</style>
 </head>
 <body>
 	 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -44,6 +50,7 @@
 			<th>Categoría</th>
 			<th>Fecha de alta</th>
 			<th>Usuario Propietario</th>
+			<th>Acción</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -53,26 +60,30 @@ include "../models/Contacto.php";
 
 $contacto = new Contacto();
 
-$contar = count($contacto->all());
+$id = $_SESSION['user']['id'];
 
-for($i = 1 ; $i < $contar; $i++) {
+$valor = $contacto->mostrar($id);
 
-	$valor = $contacto->mostrar($i);
+$contar = count($valor);
 
-	echo "<br>";
-	var_dump($valor);
-	echo "<br>";
+for($i = 0 ; $i < $contar; $i++) {
 
-	// echo '<tr>';
-	// echo '<td>' . $valor[0]['nombre'] . '</td>';
-	// echo '<td>' . $valor[0]['apellidos'] . '</td>';
-	// echo '<td>' . $valor[0]['telefono'] . '</td>';
-	// echo '<td>' . $valor[0]['email'] . '</td>';
-	// echo '<td>' . $valor[0]['direccion'] . '</td>';
-	// echo '<td>' . $valor[0]['categoria_id'] . '</td>';
-	// echo '<td>' . $valor[0]['fecha_alta'] . '</td>';
-	// echo '<td>' . $valor[0]['usuario_id'] . '</td>';
-	// echo '</tr>';
+	echo '<tr>';
+	echo '<td>' . $valor[$i]['nombre'] . '</td>';
+	echo '<td>' . $valor[$i]['apellidos'] . '</td>';
+	echo '<td>' . $valor[$i]['telefono'] . '</td>';
+	echo '<td>' . $valor[$i]['email'] . '</td>';
+	echo '<td>' . $valor[$i]['direccion'] . '</td>';
+	echo '<td>' . $valor[$i]['categoria_id'] . '</td>';
+	echo '<td>' . $valor[$i]['fecha_alta'] . '</td>';
+	echo '<td>' . $valor[$i]['usuario_id'] . '</td>';
+	echo '<td> <a href="editarContacto.php?id=' . $valor[$i]['id'] . '&nombre=' 
+	. $valor[$i]['nombre'] . '&apellidos=' . $valor[$i]['apellidos'] . '&telefono=' 
+	. $valor[$i]['telefono'] . '&email=' . $valor[$i]['email'] . '&direccion=' 
+	. $valor[$i]['direccion'] . '&fecha_alta=' . $valor[$i]['fecha_alta'] . '">
+	<i class="fa fa-pencil-square" style="font-size:36px"></i></a>
+				<a href="borrarContacto.php?id=' . $valor[$i]['id'] . '"><i class="fa fa-remove" style="font-size:36px;color:red"></i></a></td>';
+	echo '</tr>';
 
 }
 
@@ -94,11 +105,10 @@ for($i = 1 ; $i < $contar; $i++) {
 
 	<br><br>
 <footer>
-	
+
 	<a class="btn btn-danger" href="/formulario/cerrarSesion.php">Cerrar Sesión</a>
 
 </footer>
-
 
 </body>
 </html>

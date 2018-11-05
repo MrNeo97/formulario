@@ -4,9 +4,10 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Crear Contactos</title>
+	<title>Ver Contactos</title>
 <link rel="stylesheet" href="/css/bootstrap.min.css">
 <link rel="stylesheet" href="/js/bootstrap.min.js">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 	 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,82 +28,60 @@
 	  </div>
 	</nav>
 
-	<?php
-	
+<?php 
+
+if ($_SESSION['user']) {
+
 	include "../funciones.php";
 
-	if ($_SESSION['user']) {
+	include "registroContactos.php";
 
-		if ($_POST) {
-			
-			include "../models/Contacto.php";
+	if ($_POST) {
 
-			$contacto = new Contacto();
+		$fecha = date('Y-m-d');
 
-			$contacto->setDbname('contactos');
-
-			$fecha = date('Y-m-d');
-
-			echo "<br>";
-
-			$datos = array ("nombre" => filter_var(trim(strtolower($_POST['nombre'])), FILTER_SANITIZE_STRING),
+		$datos = array ("nombre" => filter_var(trim(strtolower($_POST['nombre'])), FILTER_SANITIZE_STRING),
 						"apellidos" => filter_var(trim(strtolower($_POST['apellidos'])), FILTER_SANITIZE_STRING),
 						"telefono" => filter_var(trim(strtolower($_POST['telefono'])), FILTER_SANITIZE_STRING),
 						"email" => filter_var(trim(strtolower($_POST['email'])), FILTER_SANITIZE_STRING),
 						"direccion" => filter_var(trim(strtolower($_POST['direccion'])), FILTER_SANITIZE_STRING),
-						"categoria_id" => 1,
-						"fecha_alta" => $fecha,
-						"usuario_id" => $_SESSION['user']['id']
+						"fecha_alta" => $fecha
 					);
 
-			if( $_POST['fecha_alta'] ) {
+		if( $_POST['fecha_alta'] ) {
 
 				$datos['fecha_alta'] = trim($_POST['fecha_alta']);
 
 			}
 
+		include "../models/Contacto.php";
 
-			try {
+		$id = array ('id' => $_GET['id']);
 
-				$contacto_id = $contacto->insert($datos);
+		$contacto = new contacto();
 
-				echo '<br>El id del nuevo contacto es el ' . $contacto_id . '<br>';
+		$contacto->update($datos, $id);
 
-				//print_r($contacto->all());
-
-				echo "<br>Todo correcto<br>";
-
-				echo '<br><a class="btn btn-primary" href="/formulario/admin/crearContactos.php">Crear otro contacto</a><br>';
-
-			} catch(Exception $e) {
-
-				echo '<h1>Error: ' . $e->getMessage() . '</h1>';
-
-			}
-
-		} else {
-
-			include "registroContactos.php";
-
-		}
-
-
-	} else {
-
-		header('Location: /formulario/login.php');
+		header('Location: /formulario/admin/verContactos.php');
 
 	}
 
+} else {
 
-	?>
+	header('Location: /formulario/login.php');
+
+}
+
+
+
+?>
 
 	<br><br>
 <footer>
-	
+
 	<a class="btn btn-danger" href="/formulario/cerrarSesion.php">Cerrar Sesión</a>
 
 </footer>
-
 
 </body>
 </html>

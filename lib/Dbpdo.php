@@ -136,9 +136,11 @@ class Dbpdo
 	public function mostrar($id)
 	{
 
-		$prepare = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE id = \'' . $id. '\'');
+		$prepare = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE usuario_id = \'' . $id. '\'');
 
 		$prepare->execute();
+
+		//$this->setQuery($prepare);
 
 		$resultado = $prepare->fetchAll(PDO::FETCH_ASSOC);
 
@@ -231,7 +233,7 @@ class Dbpdo
 
 			$prepare->execute($this->normalizePrepareArray($params));
 
-			$this->setQuery($prepare); //para ver la consulta
+			//$this->setQuery($prepare); //para ver la consulta
 			
 		} else {
 
