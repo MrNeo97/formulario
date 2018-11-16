@@ -5,9 +5,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Ver Contactos</title>
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/js/bootstrap.min.js">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/formulario/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/formulario/js/bootstrap.min.js">
+    <link rel="stylesheet" href="/formulario/css/font-awesome.min.css">
 </head>
 <body>
 	 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -23,6 +23,9 @@
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="/formulario/admin/verContactos.php">Ver Contactos</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="/formulario/admin/buscarContacto.php"><i class="fa fa-search"></i></a>
 	      </li>
 	    </ul>
 	  </div>

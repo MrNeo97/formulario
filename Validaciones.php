@@ -3,13 +3,6 @@
 class Validaciones
 {
 
-
-	// public function __construct()
-	// {
-	// 	$errores = [];
-	// }
-	//¿Por que no me declada $errores?
-
 	public function sanar()
 	{
 		$datos = [];

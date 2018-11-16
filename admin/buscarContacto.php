@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="/formulario/css/bootstrap.min.css">
     <link rel="stylesheet" href="/formulario/js/bootstrap.min.js">
     <link rel="stylesheet" href="/formulario/css/font-awesome.min.css">
+<style>
+	table {
+		text-align: center;
+	}
+</style>
 </head>
 <body>
 	 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -31,62 +36,85 @@
 	  </div>
 	</nav>
 
-	<?php
-	
-	include "../funciones.php";
+<?php 
+
+	include "formBuscar.php";
+
 
 	if ($_SESSION['user']) {
 
-		if ($_POST) {
+		if ( $_POST ) {
 			
 			include "../models/Contacto.php";
 
+			$parametro = strtolower($_POST['parametro']);
+
+			$valor = trim(strtolower($_POST['valor']));
+
 			$contacto = new Contacto();
 
-			$contacto->setDbname('contactos');
+			$busqueda = $contacto->mostrar($valor, $parametro);
 
-			$fecha = date('Y-m-d');
+			if ($busqueda) {
 
-			echo "<br>";
+?>
+<br>
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Apellidos</th>
+						<th>Teléfono</th>
+						<th>Email</th>
+						<th>Dirección</th>
+						<th>Categoría</th>
+						<th>Fecha de alta</th>
+						<th>Usuario Propietario</th>
+					</tr>
+				</thead>
+				<tbody>
+<?php
 
-			$datos = array ("nombre" => filter_var(trim(strtolower($_POST['nombre'])), FILTER_SANITIZE_STRING),
-						"apellidos" => filter_var(trim(strtolower($_POST['apellidos'])), FILTER_SANITIZE_STRING),
-						"telefono" => filter_var(trim(strtolower($_POST['telefono'])), FILTER_SANITIZE_STRING),
-						"email" => filter_var(trim(strtolower($_POST['email'])), FILTER_SANITIZE_STRING),
-						"direccion" => filter_var(trim(strtolower($_POST['direccion'])), FILTER_SANITIZE_STRING),
-						"categoria_id" => 1,
-						"fecha_alta" => $fecha,
-						"usuario_id" => $_SESSION['user']['id']
-					);
+				//include "../funciones.php";
 
-			if( $_POST['fecha_alta'] ) {
+				//dimeUsuario();
 
-				$datos['fecha_alta'] = trim($_POST['fecha_alta']);
+				$contar = count($busqueda);
 
+				for($i = 0 ; $i < $contar; $i++) {
+
+					echo '<tr>';
+					echo '<td>' . $busqueda[$i]['nombre'] . '</td>';
+					echo '<td>' . $busqueda[$i]['apellidos'] . '</td>';
+					echo '<td>' . $busqueda[$i]['telefono'] . '</td>';
+					echo '<td>' . $busqueda[$i]['email'] . '</td>';
+					echo '<td>' . $busqueda[$i]['direccion'] . '</td>';
+					echo '<td>' . $busqueda[$i]['categoria_id'] . '</td>';
+					echo '<td>' . $busqueda[$i]['fecha_alta'] . '</td>';
+					echo '<td>' . $_SESSION['user']['nombre'] . '</td>';
+					echo '</tr>';
+				
+				}
+?>
+
+
+	</tbody>
+</table>
+
+<?php
+
+			} else {
+
+				if ($_POST['parametro'] == 'nombre') {
+
+					echo "Nombre no encontrado.";
+
+				} else {
+
+					echo "Categoría no encontrada";
+
+				}
 			}
-
-
-			try {
-
-				$contacto_id = $contacto->insert($datos);
-
-				echo '<br>El id del nuevo contacto es el ' . $contacto_id . '<br>';
-
-				//print_r($contacto->all());
-
-				echo "<br>Todo correcto<br>";
-
-				echo '<br><a class="btn btn-primary" href="/formulario/admin/crearContactos.php">Crear otro contacto</a><br>';
-
-			} catch(Exception $e) {
-
-				echo '<h1>Error: ' . $e->getMessage() . '</h1>';
-
-			}
-
-		} else {
-
-			include "registroContactos.php";
 
 		}
 
@@ -97,16 +125,14 @@
 
 	}
 
+?>
 
-	?>
-
-	<br><br>
+<br><br>
 <footer>
-	
+
 	<a class="btn btn-danger" href="/formulario/cerrarSesion.php">Cerrar Sesión</a>
 
 </footer>
-
 
 </body>
 </html>

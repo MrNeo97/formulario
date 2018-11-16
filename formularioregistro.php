@@ -3,18 +3,16 @@
 	<div class="row">
 		<div class="col-6">
 
-			<?php include "funciones.php" ?>
-					
 			<div class="form-group">
 
 				<h1>Formularios usables</h1>
 
 				<label for="nombre">Nombre</label>
 
-				<input type="text" class="form-control" name="nombre" 
-				<?php mostrar_campo('nombre'); ?>>
+				<input type="text" class="form-control" name="nombre"
+                    <?php $error = new Errores(); $error->mostrarCampo('nombre'); ?>>
 
-				<?php mostrar_error_campo('nombre', $errores) ?>
+                <?php $error->mostrarErrorCampo('nombre', $errores) ?>
 			</div>
 
 			<!-- <div class="form-group">
@@ -32,9 +30,9 @@
 				<label for="email">Email</label>
 
 				<input type="text" class="form-control" name="email" 
-				<?php mostrar_campo('email'); ?>>
+				<?php $error->mostrarCampo('email'); ?>>
 
-				<?php mostrar_error_campo('email', $errores) ?>
+				<?php $error->mostrarErrorCampo('email', $errores) ?>
 			</div>
 
 			<!-- <div class="form-group">
@@ -52,7 +50,7 @@
 				<label for="clave1">Clave</label>
 
 				<input type="password" class="form-control" name="clave1">
-				<?php mostrar_error_campo('clave', $errores) ?>
+				<?php $error->mostrarErrorCampo('clave', $errores) ?>
 			</div>
 
 			<div class="form-group">

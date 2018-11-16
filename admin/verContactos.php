@@ -5,9 +5,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Ver Contactos</title>
-<link rel="stylesheet" href="/css/bootstrap.min.css">
-<link rel="stylesheet" href="/js/bootstrap.min.js">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/formulario/css/bootstrap.min.css">
+<link rel="stylesheet" href="/formulario/js/bootstrap.min.js">
+<link rel="stylesheet" href="/formulario/css/font-awesome.min.css">
 <style>
 	table {
 		text-align: center;
@@ -28,6 +28,9 @@
 	      </li>
 	      <li class="nav-item">
 	        <a class="nav-link" href="/formulario/admin/verContactos.php">Ver Contactos</a>
+	      </li>
+	      <li class="nav-item">
+	        <a class="nav-link" href="/formulario/admin/buscarContacto.php"><i class="fa fa-search"></i></a>
 	      </li>
 	    </ul>
 	  </div>
@@ -76,7 +79,7 @@ for($i = 0 ; $i < $contar; $i++) {
 	echo '<td>' . $valor[$i]['direccion'] . '</td>';
 	echo '<td>' . $valor[$i]['categoria_id'] . '</td>';
 	echo '<td>' . $valor[$i]['fecha_alta'] . '</td>';
-	echo '<td>' . $valor[$i]['usuario_id'] . '</td>';
+	echo '<td>' . $_SESSION['user']['nombre'] . '</td>';
 	echo '<td> <a href="editarContacto.php?id=' . $valor[$i]['id'] . '&nombre=' 
 	. $valor[$i]['nombre'] . '&apellidos=' . $valor[$i]['apellidos'] . '&telefono=' 
 	. $valor[$i]['telefono'] . '&email=' . $valor[$i]['email'] . '&direccion=' 
@@ -84,6 +87,8 @@ for($i = 0 ; $i < $contar; $i++) {
 	<i class="fa fa-pencil-square" style="font-size:36px"></i></a>
 				<a href="borrarContacto.php?id=' . $valor[$i]['id'] . '"><i class="fa fa-remove" style="font-size:36px;color:red"></i></a></td>';
 	echo '</tr>';
+
+	//input type="hidden"
 
 }
 

@@ -127,16 +127,20 @@ class Dbpdo
 
 		} else {
 
-			throw new Exception('el email no existe');
+			//throw new Exception('el email no existe');
+
+            include "formulariologin.php";
+
+            echo 'El email no existe';
 
 		}
 
 	}
 
-	public function mostrar($id)
+	public function mostrar($valor, $parametro = 'usuario_id')
 	{
 
-		$prepare = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE usuario_id = \'' . $id. '\'');
+		$prepare = $this->db->prepare('SELECT * FROM ' . $this->table . ' WHERE ' . $parametro . ' = \'' . $valor. '\'');
 
 		$prepare->execute();
 
