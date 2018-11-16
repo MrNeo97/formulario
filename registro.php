@@ -5,7 +5,7 @@ spl_autoload_register(function($clase) {
 });
 
 $layout = new Plantillas();
-$layout->getHeader($titulo = 'Login');
+$layout->getHeader($titulo = 'Registro');
 
 $errores = [];
 

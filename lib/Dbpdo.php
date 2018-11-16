@@ -121,7 +121,9 @@ class Dbpdo
 
 			} else {
 
-				echo "El usuario NO es correcto<br>";
+                $errores['email'] = 'Email y clave no coinciden';
+
+                include "formulariologin.php";
 
 			}
 
@@ -129,9 +131,10 @@ class Dbpdo
 
 			//throw new Exception('el email no existe');
 
+            $errores['email'] = 'El email no existe';
+
             include "formulariologin.php";
 
-            echo 'El email no existe';
 
 		}
 
@@ -185,7 +188,7 @@ class Dbpdo
 
 		} else {
 
-			throw new Exception('Los parametros están vacios');
+			throw new Exception('No se ha podido crear el usuario');
 
 		}
 	}

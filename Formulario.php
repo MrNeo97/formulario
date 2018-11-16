@@ -6,17 +6,14 @@
  * Time: 10:35
  */
 
+include "./models/Usuario.php";
+
 class Formulario
 {
 
 
     public function login()
     {
-
-        spl_autoload_register(function($clase) {
-            $archivo = './models/' . $clase . '.php';
-            include_once $archivo;
-        });
 
         $email = strtolower($_POST['email']);
         $clave = $_POST['clave'];
@@ -33,18 +30,11 @@ class Formulario
 
             echo $_SESSION['user']['nombre'];
 
-        } else {
-            echo '<br>error Form<br>';
-            return false;
         }
     }
 
     public function register()
     {
-        spl_autoload_register(function($clase) {
-            $archivo = './models/' . $clase . '.php';
-            include_once $archivo;
-        });
 
         $usuario = new Usuario();
 
@@ -56,7 +46,7 @@ class Formulario
 
             $usuario_id = $usuario->insert($datos);
 
-            echo '<br>El id del nuevo usuario es ' . $usuario_id . '<br>';
+            echo 'El id del nuevo usuario es ' . $usuario_id . '<br>';
 
             echo "<br>Todo correcto<br>";
 
@@ -64,7 +54,10 @@ class Formulario
 
         } catch(Exception $e) {
 
-            echo '<h1>Error: ' . $e->getMessage() . '</h1>';
+            $errores['email'] = $e->getMessage();
+
+            include "formulariologin.php";
+            //echo '<h1>Error: ' . $e->getMessage() . '</h1>';
 
         }
     }

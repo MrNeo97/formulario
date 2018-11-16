@@ -8,14 +8,14 @@
 				<h1>Login</h1>
 				<label for="email"></label>
 				<input type="text" class="form-control" name="email" placeholder="Introduce tu email">
-                <?php //$errores = []; $error = new Errores(); $error->mostrarErrorCampo('email', $errores) ?>
+                <?php $error = new Errores();
+                $error->mostrarErrorCampo('email', $errores) ?>
 			</div>
 			<div class="form-group">
 
 				<label for="clave"></label>
 
 				<input type="password" class="form-control" name="clave" placeholder="Contraseña">
-                <?php //$error->mostrarErrorCampo('email', $errores) ?>
 			</div>
 
 			<button class="btn btn-primary" type="submit">Enviar</button>

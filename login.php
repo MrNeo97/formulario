@@ -16,7 +16,7 @@ if ($_POST) {
     $login = new Formulario();
     $login->login();
 
-    var_dump($errores);
+    //var_dump($errores['email']);
 /*if ($login->login()) {
     $layout->cerrarSesion();
 }*/
